@@ -13,10 +13,13 @@ namespace Ijora.Storage
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-            PropertyEntity.OnModelConfig(modelBuilder.Entity<PropertyEntity>());
+        {
+            RealEstateEntity.OnModelConfig(modelBuilder.Entity<RealEstateEntity>());
         }
 
-        public DbSet<PropertyEntity> Properties { get; set; }
+        /// <summary>
+        /// Недвижимости.
+        /// </summary>
+        public DbSet<RealEstateEntity> RealEstates { get; set; }
     }
 }

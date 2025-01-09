@@ -75,4 +75,40 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         Other        // Другой материал
     }
 
+    /// <summary>
+    /// Тип недвижимости (продажа, аренда)
+    /// </summary>
+    public enum PropertyUsageType
+    {
+        /// <summary>
+        /// Продажа недвижимости.
+        /// </summary>
+        [Description("Продажа")]
+        Sale,        // Продажа недвижимости
+
+        /// <summary>
+        /// Аренда недвижимости.
+        /// </summary>
+        [Description("Аренда")]
+        Rent,        // Аренда недвижимости
+
+        /// <summary>
+        /// Обмен недвижимости.
+        /// </summary>
+        [Description("Обмен")]
+        Exchange,    // Обмен недвижимости
+
+        /// <summary>
+        /// Продажа с правом аренды.
+        /// </summary>
+        [Description("Продажа с правом аренды")]
+        SaleWithRent, // Продажа с правом аренды
+
+        /// <summary>
+        /// Коммерческое использование недвижимости.
+        /// </summary>
+        [Description("Коммерческое использование")]
+        Commercial   // Коммерческое использование недвижимости
+    }
+
 }

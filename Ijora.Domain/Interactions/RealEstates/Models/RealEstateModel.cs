@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Ijora.Domain.Interactions.RealEstates.Models
 {
     /// <summary>
@@ -12,14 +14,29 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// ИД сотрудника, который разместил объявление.
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Дата размещения объявления.
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// Тип записи: аренда, продажа.
+        /// </summary>
+        public PropertyUsageType PropertyUsageType { get; set; }
+
+        /// <summary>
         /// Площадь объекта в квадратных метрах.
         /// </summary>
-        public double SquareMeters { get; set; }
+        public double? SquareMeters { get; set; }
 
         /// <summary>
         /// Стоимость объекта недвижимости.
         /// </summary>
-        public double Price { get; set; }
+        public double? Price { get; set; }
 
         /// <summary>
         /// Тип недвижимости (например, Квартира, Дом, Таунхаус и т.д.).
@@ -34,17 +51,17 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// <summary>
         /// Количество комнат в объекте.
         /// </summary>
-        public int RoomCount { get; set; }
+        public int? RoomCount { get; set; }
 
         /// <summary>
         /// Этаж, на котором расположен объект (для квартир).
         /// </summary>
-        public int Floor { get; set; }
+        public int? Floor { get; set; }
 
         /// <summary>
         /// Общее количество этажей в здании.
         /// </summary>
-        public int TotalFloors { get; set; }
+        public int? TotalFloors { get; set; }
 
         /// <summary>
         /// Наличие парковочного места.
@@ -59,12 +76,7 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// <summary>
         /// Год постройки здания.
         /// </summary>
-        public int YearBuilt { get; set; }
-
-        /// <summary>
-        /// Тип отопления (например, Центральное, Индивидуальное).
-        /// </summary>
-        public string HeatingType { get; set; }
+        public int? YearBuilt { get; set; }
 
         /// <summary>
         /// Наличие мебели в объекте.
@@ -99,7 +111,7 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// <summary>
         /// Материал стен здания (например, Кирпич, Панель, Монолит, Дерево и т.д.).
         /// </summary>
-        public string WallMaterial { get; set; }
+        public WallMaterial WallMaterial { get; set; }
 
         /// <summary>
         /// Находится ли объект в закрытом жилом комплексе.
@@ -129,6 +141,6 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// <summary>
         /// URL-ы изображений объекта, сохранённые в формате JSON или через запятую.
         /// </summary>
-        public string ImageUrls { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
 }
