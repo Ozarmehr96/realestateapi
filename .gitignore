@@ -1,0 +1,9 @@
+/.vs
+/Ijora.RestAPI/obj
+/Ijora.RestAPI/bin
+/Ijora.Data/bin
+/Ijora.Data/obj
+/Ijora.Domain/obj
+/Ijora.Domain/bin
+/Ijora.Storage/bin
+/Ijora.Storage/obj
