@@ -3,6 +3,27 @@
 namespace Ijora.Domain.Interactions.RealEstates.Models
 {
     /// <summary>
+    /// Состояние дома (новостройка, вторичка)
+    /// </summary>
+    public enum PropertyCondition
+    {
+        NewBuilding,      // Новостройка
+        SecondHand,       // Вторичное жилье
+        UnderConstruction,// На стадии строительства
+        Renovated,        // После ремонта
+        RequiresRenovation // Требуется ремонт
+    }
+
+    /// <summary>
+    /// Тип отопления.
+    /// </summary>
+    public enum HeatingType
+    {
+        Central,      // Центральное отопление
+        Individual    // Индивидуальное отопление
+    }
+
+    /// <summary>
     /// Тип недвижимости/постройки
     /// </summary>
     public enum PropertyType
@@ -111,4 +132,44 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         Commercial   // Коммерческое использование недвижимости
     }
 
+    /// <summary>
+    /// Перечисление возможных видов из окон.
+    /// </summary>
+    public enum WindowViewType
+    {
+        /// <summary>
+        /// Вид на двор.
+        /// </summary>
+        Courtyard,
+
+        /// <summary>
+        /// Вид на улицу.
+        /// </summary>
+        Street,
+
+        /// <summary>
+        /// Вид на реку.
+        /// </summary>
+        River,
+
+        /// <summary>
+        /// Вид на парк.
+        /// </summary>
+        Park,
+
+        /// <summary>
+        /// Вид на горы.
+        /// </summary>
+        Mountains,
+
+        /// <summary>
+        /// Вид на море.
+        /// </summary>
+        Sea,
+
+        /// <summary>
+        /// Вид на другие объекты.
+        /// </summary>
+        Other
+    }
 }
