@@ -14,6 +14,11 @@ namespace Ijora.RestAPI.Api.V1.Controllers
         {
         }
 
+        [HttpGet("id")]
+        public async Task<IActionResult> Get()
+        {
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRealEstateRequest command)
         {

@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 
 namespace Ijora.RestAPI.Api.V1.Models
 {
-    [JsonObject]
-    public class CreateRealEstateRequest
+    public class RealEstateResponse
     {
         #region Основные характеристики
 
@@ -16,7 +16,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// <summary>
         /// Полный адрес объекта недвижимости.
         /// </summary>
-        [JsonProperty(PropertyName = "address", Required = Required.Always)]
+        [JsonProperty(PropertyName = "address")]
         public string Address { get; set; }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// <summary>
         /// Общая площадь объекта недвижимости в квадратных метрах.
         /// </summary>
-        [JsonProperty(PropertyName = "square_meters", Required = Required.Always)]
+        [JsonProperty(PropertyName = "square_meters")]
         public double? SquareMeters { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// <summary>
         /// Описание объекта недвижимости.
         /// </summary>
-        [JsonProperty(PropertyName = "description", Required = Required.Always)]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// <summary>
         /// Стоимость объекта недвижимости.
         /// </summary>
-        [JsonProperty(PropertyName = "price", Required = Required.Always)]
+        [JsonProperty(PropertyName = "price")]
         public double? Price { get; set; }
 
         #endregion
@@ -136,7 +136,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// <summary>
         /// Состояние дома (новостройка, вторичка)
         /// </summary>
-        [JsonProperty(PropertyName = "property_condition", Required = Required.Always)]
+        [JsonProperty(PropertyName = "property_condition")]
         public string PropertyCondition { get; set; }
 
         /// <summary>
@@ -151,88 +151,6 @@ namespace Ijora.RestAPI.Api.V1.Models
         [JsonProperty(PropertyName = "is_in_gated_community")]
         public bool IsInGatedCommunity { get; set; }
 
-        /// <summary>
-        /// Разрешены ли домашние животные.
-        /// </summary>
-        [JsonProperty(PropertyName = "allows_pets")]
-        public bool AllowsPets { get; set; }
+        /// 
 
-        /// <summary>
-        /// Разрешено ли проживание с детьми.
-        /// </summary>
-        [JsonProperty(PropertyName = "allows_children")]
-        public bool AllowsChildren { get; set; }
-
-        /// <summary>
-        /// URL-ы изображений объекта недвижимости.
-        /// </summary>
-        [JsonProperty(PropertyName = "image_urls", Required = Required.Always)]
-        public List<string> ImageUrls { get; set; }
-
-        /// <summary>
-        /// Наличие мебели в объекте.
-        /// </summary>
-        [JsonProperty(PropertyName = "is_furnished")]
-        public bool IsFurnished { get; set; }
-
-        #endregion
-
-        #region Детали сделки
-
-        /// <summary>
-        /// Количество лет в собственности у текущего владельца.
-        /// </summary>
-        [JsonProperty(PropertyName = "ownership_years")]
-        public int OwnershipYears { get; set; }
-
-        /// <summary>
-        /// Количество собственников объекта недвижимости.
-        /// </summary>
-        [JsonProperty(PropertyName = "owner_count")]
-        public int OwnerCount { get; set; }
-
-        #endregion
-
-        #region Данные о записи
-
-        /// <summary>
-        /// Номер телефона, с которого была опубликована запись.
-        /// </summary>
-        [JsonProperty(PropertyName = "publisher_phone_number")]
-        public string PublisherPhoneNumber { get; set; }
-
-        /// <summary>
-        /// Тип записи (продажа или аренда).
-        /// </summary>
-        [JsonProperty(PropertyName = "property_usage_type", Required = Required.Always)]
-        public string PropertyUsageType { get; set; }
-
-        /// <summary>
-        /// Тип недвижимости.
-        /// </summary>
-        [JsonProperty(PropertyName = "property_type", Required = Required.Always)]
-        public string PropertyType { get; set; }
-
-        #endregion
-
-        #region Материал стен
-
-        /// <summary>
-        /// Материал стен здания.
-        /// </summary>
-        [JsonProperty(PropertyName = "wall_material")]
-        public string WallMaterial { get; set; }
-
-        #endregion
-
-        #region Состояние ремонта
-
-        /// <summary>
-        /// Состояние ремонта объекта недвижимости.
-        /// </summary>
-        [JsonProperty(PropertyName = "renovation")]
-        public string Renovation { get; set; }
-
-        #endregion
     }
-}

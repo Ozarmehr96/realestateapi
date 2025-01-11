@@ -4,44 +4,16 @@ using System.Collections.Generic;
 namespace Ijora.Domain.Interactions.RealEstates.Models
 {
     /// <summary>
-    /// Недвижимость.
+    /// Представляет объект недвижимости.
     /// </summary>
     public class RealEstateModel
     {
+        #region Основные характеристики
+
         /// <summary>
         /// Уникальный идентификатор объекта недвижимости.
         /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// ИД сотрудника, который разместил объявление.
-        /// </summary>
-        public Guid UserId { get; set; }
-
-        /// <summary>
-        /// Дата размещения объявления.
-        /// </summary>
-        public DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Тип записи: аренда, продажа.
-        /// </summary>
-        public PropertyUsageType PropertyUsageType { get; set; }
-
-        /// <summary>
-        /// Площадь объекта в квадратных метрах.
-        /// </summary>
-        public double? SquareMeters { get; set; }
-
-        /// <summary>
-        /// Стоимость объекта недвижимости.
-        /// </summary>
-        public double? Price { get; set; }
-
-        /// <summary>
-        /// Тип недвижимости (например, Квартира, Дом, Таунхаус и т.д.).
-        /// </summary>
-        public PropertyType PropertyType { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Полный адрес объекта недвижимости.
@@ -49,12 +21,27 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         public string Address { get; set; }
 
         /// <summary>
-        /// Количество комнат в объекте.
+        /// Количество комнат в объекте недвижимости.
         /// </summary>
         public int? RoomCount { get; set; }
 
         /// <summary>
-        /// Этаж, на котором расположен объект (для квартир).
+        /// Общая площадь объекта недвижимости в квадратных метрах.
+        /// </summary>
+        public double? SquareMeters { get; set; }
+
+        /// <summary>
+        /// Жилая площадь объекта недвижимости в квадратных метрах.
+        /// </summary>
+        public double? LivingArea { get; set; }
+
+        /// <summary>
+        /// Площадь кухни в объекте недвижимости в квадратных метрах.
+        /// </summary>
+        public double KitchenArea { get; set; }
+
+        /// <summary>
+        /// Этаж, на котором находится объект недвижимости.
         /// </summary>
         public int? Floor { get; set; }
 
@@ -64,64 +51,86 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         public int? TotalFloors { get; set; }
 
         /// <summary>
+        /// Описание объекта недвижимости.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// Наличие парковочного места.
         /// </summary>
         public bool HasParking { get; set; }
 
         /// <summary>
-        /// Наличие балкона или лоджии.
+        /// Стоимость объекта недвижимости.
+        /// </summary>
+        public double? Price { get; set; }
+
+        #endregion
+
+        #region Планировка
+
+        /// <summary>
+        /// Вид из окон объекта недвижимости.
+        /// </summary>
+        public WindowViewType? WindowView { get; set; }
+
+        /// <summary>
+        /// Наличие балкона в объекте недвижимости.
         /// </summary>
         public bool HasBalcony { get; set; }
 
         /// <summary>
-        /// Год постройки здания.
+        /// Высота потолков в объекте недвижимости в метрах.
         /// </summary>
-        public int? YearBuilt { get; set; }
+        public double? CeilingHeight { get; set; }
 
         /// <summary>
-        /// Наличие мебели в объекте.
+        /// Количество санузлов в объекте недвижимости.
         /// </summary>
-        public bool IsFurnished { get; set; }
+        public int? BathroomCount { get; set; }
+
+        #endregion
+
+        #region Подъезд
+
+        /// <summary>
+        /// Наличие лифта в подъезде.
+        /// </summary>
+        public bool HasElevator { get; set; }
+
+        /// <summary>
+        /// Количество грузовых лифтов в подъезде.
+        /// </summary>
+        public int CargoElevatorCount { get; set; }
+
+        #endregion
+
+        #region Доп характеристики
+
+        /// <summary>
+        /// Тип отопления (например, Центральное, Индивидуальное).
+        /// </summary>
+        public HeatingType? HeatingType { get; set; }
 
         /// <summary>
         /// Тип собственности (например, Частная, Государственная).
         /// </summary>
-        public OwnershipType OwnershipType { get; set; }
+        public OwnershipType? OwnershipType { get; set; }
 
         /// <summary>
-        /// Состояние ремонта (например, Дизайнерский, Косметический, Без ремонта).
+        /// Состояние дома (новостройка, вторичка)
         /// </summary>
-        public Renovation Renovation { get; set; }
+        public PropertyCondition? PropertyCondition { get; set; }
 
         /// <summary>
-        /// Площадь кухни в квадратных метрах.
+        /// Дата постройки здания.
         /// </summary>
-        public double KitchenArea { get; set; }
-
-        /// <summary>
-        /// Жилая площадь объекта в квадратных метрах.
-        /// </summary>
-        public double LivingArea { get; set; }
-
-        /// <summary>
-        /// Площадь земельного участка (для домов и дач) в квадратных метрах.
-        /// </summary>
-        public double LandArea { get; set; }
-
-        /// <summary>
-        /// Материал стен здания (например, Кирпич, Панель, Монолит, Дерево и т.д.).
-        /// </summary>
-        public WallMaterial WallMaterial { get; set; }
+        public int? YearBuilt { get; set; }
 
         /// <summary>
         /// Находится ли объект в закрытом жилом комплексе.
         /// </summary>
         public bool IsInGatedCommunity { get; set; }
-
-        /// <summary>
-        /// Наличие лифта (для многоквартирных домов).
-        /// </summary>
-        public bool HasElevator { get; set; }
 
         /// <summary>
         /// Разрешены ли домашние животные.
@@ -134,13 +143,76 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         public bool AllowsChildren { get; set; }
 
         /// <summary>
-        /// Подробное описание объекта недвижимости.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// URL-ы изображений объекта, сохранённые в формате JSON или через запятую.
+        /// URL-ы изображений объекта недвижимости.
         /// </summary>
         public List<string> ImageUrls { get; set; }
+
+        /// <summary>
+        /// Наличие мебели в объекте.
+        /// </summary>
+        public bool IsFurnished { get; set; }
+
+        #endregion
+
+        #region Детали сделки
+
+        /// <summary>
+        /// Количество лет в собственности у текущего владельца.
+        /// </summary>
+        public int OwnershipYears { get; set; }
+
+        /// <summary>
+        /// Количество собственников объекта недвижимости.
+        /// </summary>
+        public int OwnerCount { get; set; }
+
+        #endregion
+
+        #region Данные о записи
+
+        /// <summary>
+        /// Идентификатор пользователя, который разместил запись.
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Дата публикации записи о недвижимости.
+        /// </summary>
+        public DateTime PublicationDate { get; set; }
+
+        /// <summary>
+        /// Номер телефона, с которого была опубликована запись.
+        /// </summary>
+        public string PublisherPhoneNumber { get; set; }
+
+        /// <summary>
+        /// Тип записи (продажа или аренда).
+        /// </summary>
+        public PropertyUsageType PropertyUsageType { get; set; }
+
+        /// <summary>
+        /// Тип недвижимости.
+        /// </summary>
+        public PropertyType? PropertyType { get; set; }
+
+        #endregion
+
+        #region Материал стен
+
+        /// <summary>
+        /// Материал стен здания.
+        /// </summary>
+        public WallMaterial? WallMaterial { get; set; }
+
+        #endregion
+
+        #region Состояние ремонта
+
+        /// <summary>
+        /// Состояние ремонта объекта недвижимости.
+        /// </summary>
+        public Renovation? Renovation { get; set; }
+
+        #endregion
     }
 }
