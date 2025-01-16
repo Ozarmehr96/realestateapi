@@ -17,6 +17,11 @@ namespace Ijora.Storage.Entity
         public long Id { get; set; }
 
         /// <summary>
+        /// Доступность для продажи или аренды.
+        /// </summary>
+        public bool IsAvaliable { get; set; }
+
+        /// <summary>
         /// ИД сотрудника, который разместил объявление.
         /// </summary>
         [Required]
@@ -32,6 +37,11 @@ namespace Ijora.Storage.Entity
         /// </summary>
         [MaxLength(50)]
         public string? PublisherPhoneNumber { get; set; }
+
+        /// <summary>
+        /// ИД жилого комплекса (ЖК), к которому относится дом
+        /// </summary>
+        public long? ComplexId { get; set; }
 
         /// <summary>
         /// Вид из окон объекта недвижимости.
@@ -225,6 +235,7 @@ namespace Ijora.Storage.Entity
 
         public static void OnModelConfig(EntityTypeBuilder<RealEstateEntity> config)
         {
+            config.HasIndex(r => new { r.Id, r.Address });
             config.ToTable("RealEstates", IjoraServiceContext.SCHEMA)
                 .HasKey(a => a.Id);
         }

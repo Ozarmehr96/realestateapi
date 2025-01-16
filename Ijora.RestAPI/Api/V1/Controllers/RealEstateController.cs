@@ -14,16 +14,18 @@ namespace Ijora.RestAPI.Api.V1.Controllers
         {
         }
 
-        [HttpGet("id")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
+            return Ok(5);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRealEstateRequest command)
         {
-            var realEstateId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = realEstateId }, null);
+            return Ok(5);
+            ///var realEstateId = await _mediator.Send(command);
+            //return CreatedAtAction(nameof(GetById), new { id = realEstateId }, null);
         }
     }
 }

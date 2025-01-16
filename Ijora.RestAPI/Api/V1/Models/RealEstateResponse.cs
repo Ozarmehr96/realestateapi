@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Ijora.Domain.Interactions.RealEstates.Models;
 using Newtonsoft.Json;
 
 namespace Ijora.RestAPI.Api.V1.Models
@@ -151,6 +151,150 @@ namespace Ijora.RestAPI.Api.V1.Models
         [JsonProperty(PropertyName = "is_in_gated_community")]
         public bool IsInGatedCommunity { get; set; }
 
-        /// 
+        /// <summary>
+        /// Разрешены ли домашние животные.
+        /// </summary>
+        [JsonProperty(PropertyName = "allows_pets")]
+        public bool AllowsPets { get; set; }
 
+        /// <summary>
+        /// Разрешено ли проживание с детьми.
+        /// </summary>
+        [JsonProperty(PropertyName = "allows_children")]
+        public bool AllowsChildren { get; set; }
+
+        /// <summary>
+        /// URL-ы изображений объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "image_urls")]
+        public List<string> ImageUrls { get; set; }
+
+        /// <summary>
+        /// Наличие мебели в объекте.
+        /// </summary>
+        [JsonProperty(PropertyName = "is_furnished")]
+        public bool IsFurnished { get; set; }
+
+        #endregion
+
+        #region Детали сделки
+
+        /// <summary>
+        /// Количество лет в собственности у текущего владельца.
+        /// </summary>
+        [JsonProperty(PropertyName = "ownership_years")]
+        public int OwnershipYears { get; set; }
+
+        /// <summary>
+        /// Количество собственников объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "owner_count")]
+        public int OwnerCount { get; set; }
+
+        #endregion
+
+        #region Данные о записи
+
+        /// <summary>
+        /// Идентификатор пользователя, который разместил запись.
+        /// </summary>
+        [JsonProperty(PropertyName = "user_id")]
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Дата публикации записи о недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "publication_date")]
+        public DateTime PublicationDate { get; set; }
+
+        /// <summary>
+        /// Номер телефона, с которого была опубликована запись.
+        /// </summary>
+        [JsonProperty(PropertyName = "publisher_phone_number")]
+        public string PublisherPhoneNumber { get; set; }
+
+        /// <summary>
+        /// Тип записи (продажа или аренда).
+        /// </summary>
+        [JsonProperty(PropertyName = "property_usage_type")]
+        public string PropertyUsageType { get; set; }
+
+        /// <summary>
+        /// Тип недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "property_type")]
+        public string PropertyType { get; set; }
+
+        #endregion
+
+        #region Материал стен
+
+        /// <summary>
+        /// Материал стен здания.
+        /// </summary>
+        [JsonProperty(PropertyName = "wall_material")]
+        public string WallMaterial { get; set; }
+
+        #endregion
+
+        #region Состояние ремонта
+
+        /// <summary>
+        /// Состояние ремонта объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "renovation")]
+        public string Renovation { get; set; }
+
+        #endregion
     }
+
+    public static class RealEstateModelExtensions
+    {
+        /// <summary>
+        /// Преобразует модель недвижимости в ответ, который будет возвращён клиенту.
+        /// </summary>
+        /// <param name="realEstate">Объект модели недвижимости.</param>
+        /// <returns>Ответ для клиента в виде объекта RealEstateResponse.</returns>
+        public static RealEstateResponse ToResponse(this RealEstateModel realEstate)
+        {
+            return new RealEstateResponse
+            {
+                Id = realEstate.Id,
+                Address = realEstate.Address,
+                RoomCount = realEstate.RoomCount,
+                SquareMeters = realEstate.SquareMeters,
+                LivingArea = realEstate.LivingArea,
+                KitchenArea = realEstate.KitchenArea,
+                Floor = realEstate.Floor,
+                TotalFloors = realEstate.TotalFloors,
+                Description = realEstate.Description,
+                HasParking = realEstate.HasParking,
+                Price = realEstate.Price,
+                WindowView = realEstate.WindowView?.ToString(), // Assuming WindowView is an enum
+                HasBalcony = realEstate.HasBalcony,
+                CeilingHeight = realEstate.CeilingHeight,
+                BathroomCount = realEstate.BathroomCount,
+                HasElevator = realEstate.HasElevator,
+                CargoElevatorCount = realEstate.CargoElevatorCount,
+                HeatingType = realEstate.HeatingType?.ToString(), // Assuming HeatingType is an enum
+                OwnershipType = realEstate.OwnershipType?.ToString(), // Assuming OwnershipType is an enum
+                PropertyCondition = realEstate.PropertyCondition?.ToString(), // Assuming PropertyCondition is an enum
+                YearBuilt = realEstate.YearBuilt,
+                IsInGatedCommunity = realEstate.IsInGatedCommunity,
+                AllowsPets = realEstate.AllowsPets,
+                AllowsChildren = realEstate.AllowsChildren,
+                ImageUrls = realEstate.ImageUrls,
+                IsFurnished = realEstate.IsFurnished,
+                OwnershipYears = realEstate.OwnershipYears,
+                OwnerCount = realEstate.OwnerCount,
+                UserId = realEstate.UserId,
+                PublicationDate = realEstate.PublicationDate,
+                PublisherPhoneNumber = realEstate.PublisherPhoneNumber,
+                PropertyUsageType = realEstate.PropertyUsageType.ToString(), // Assuming PropertyUsageType is an enum
+                PropertyType = realEstate.PropertyType?.ToString(), // Assuming PropertyType is an enum
+                WallMaterial = realEstate.WallMaterial?.ToString(), // Assuming WallMaterial is an enum
+                Renovation = realEstate.Renovation?.ToString() // Assuming Renovation is an enum
+            };
+        }
+    }
+}

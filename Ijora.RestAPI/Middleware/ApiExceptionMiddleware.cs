@@ -13,7 +13,7 @@ namespace Ijora.RestAPI.Middleware
 
         public ApiExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, IWebHostEnvironment environment)
         {
-            _logger = loggerFactory.CreateLogger("Alrosa.RestApi.Error");
+            _logger = loggerFactory.CreateLogger("Ijora.RestApi.Error");
             _next = next;
             _env = environment;
         }

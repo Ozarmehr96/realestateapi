@@ -22,19 +22,32 @@ builder.Services.AddDbContext<IjoraServiceContext>(options =>
         o.MigrationsAssembly("Ijora.RestAPI");
     });
 });
-
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 var app = builder.Build();
-app.UseMiddleware<ApiExceptionMiddleware>();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<IjoraServiceContext>();
     dbContext.Database.Migrate();
     // Add-Migration DBInit
 }
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        options.RoutePrefix = "swagger"; // Делает Swagger UI доступным по корню URL
+    });
+}
+
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ApiExceptionMiddleware>();
 
+app.UseRouting();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
