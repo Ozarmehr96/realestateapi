@@ -1,7 +1,6 @@
 ﻿using Ijora.Domain.Interactions;
 using Ijora.Domain.Interactions.RealEstates.Models;
 using Ijora.Storage.Entity;
-using System.Drawing;
 
 namespace Ijora.Data.Mappers
 {
@@ -12,9 +11,11 @@ namespace Ijora.Data.Mappers
             return new RealEstateModel()
             {
                 Id = e.Id,
+                IsAvaliable = e.IsAvaliable,
                 UserId = e.UserId,
                 PublicationDate = e.PublicationDate,
                 PublisherPhoneNumber = e.PublisherPhoneNumber,
+                ComplexId = e.ComplexId,
                 WindowView = EnumExtensions.ConvertToEnum<WindowViewType>(e.WindowView),
                 PropertyUsageType = (PropertyUsageType)EnumExtensions.ConvertToEnum<PropertyUsageType>(e.PropertyUsageType),
                 SquareMeters = e.SquareMeters,
@@ -58,7 +59,7 @@ namespace Ijora.Data.Mappers
                 PublicationDate = e.PublicationDate,
                 PublisherPhoneNumber = e.PublisherPhoneNumber,
                 WindowView = e.WindowView?.ToString(),
-                PropertyUsageType = (PropertyUsageType)EnumExtensions.ConvertToEnum<PropertyUsageType>(e.PropertyUsageType),
+                PropertyUsageType = e.PropertyUsageType.ToString(),
                 SquareMeters = e.SquareMeters,
                 Price = e.Price,
                 PropertyType = e.PropertyType?.ToString(),

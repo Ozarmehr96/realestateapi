@@ -16,6 +16,11 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         public long Id { get; set; }
 
         /// <summary>
+        /// Доступность для продажи или аренды.
+        /// </summary>
+        public bool IsAvaliable { get; set; }
+
+        /// <summary>
         /// Полный адрес объекта недвижимости.
         /// </summary>
         public string Address { get; set; }
@@ -184,6 +189,11 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// Номер телефона, с которого была опубликована запись.
         /// </summary>
         public string PublisherPhoneNumber { get; set; }
+
+        /// <summary>
+        /// ИД жилого комплекса (ЖК), к которому относится дом
+        /// </summary>
+        public long? ComplexId { get; set; }
 
         /// <summary>
         /// Тип записи (продажа или аренда).

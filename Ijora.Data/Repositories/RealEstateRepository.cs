@@ -2,6 +2,7 @@
 using Ijora.Domain.Interactions.RealEstates;
 using Ijora.Domain.Interactions.RealEstates.Models;
 using Ijora.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ijora.Data.Repositories
 {
@@ -12,6 +13,12 @@ namespace Ijora.Data.Repositories
         public RealEstateRepository(IjoraServiceContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<RealEstateModel> Get(long Id)
+        {
+            var realEstate = await _dbContext.RealEstates.AsNoTracking().FirstOrDefaultAsync(r => r.Id == Id);
+            return realEstate?.ToDomainModel();
         }
 
         public async Task<RealEstateModel> Save(RealEstateModel realEstate)
