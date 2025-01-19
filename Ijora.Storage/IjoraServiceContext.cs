@@ -5,7 +5,8 @@ namespace Ijora.Storage
 {
     public class IjoraServiceContext : DbContext
     {
-        public const string SCHEMA = "IjoraService";
+        //public const string SCHEMA = "IjoraService";
+        public const string SCHEMA = null;
 
         public IjoraServiceContext(DbContextOptions<IjoraServiceContext> options)
             : base(options)
@@ -14,6 +15,7 @@ namespace Ijora.Storage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            AuthEntity.OnModelConfig(modelBuilder.Entity<AuthEntity>());
             RealEstateEntity.OnModelConfig(modelBuilder.Entity<RealEstateEntity>());
             ComplexEntity.OnModelConfig(modelBuilder.Entity<ComplexEntity>());
         }
@@ -27,5 +29,10 @@ namespace Ijora.Storage
         /// Жилые комплексы.
         /// </summary>
         public DbSet<ComplexEntity> Complexes { get; set; }
+
+        /// <summary>
+        /// Авторизация.
+        /// </summary>
+        public DbSet<AuthEntity> Auth { get; set; }
     }
 }

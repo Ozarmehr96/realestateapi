@@ -1,4 +1,4 @@
-﻿using Ijora.Domain.Exceptions;
+﻿using Ijora.Domain.Infrastructure;
 
 namespace Ijora.Domain.Interactions.RealEstates.Exceptions
 {

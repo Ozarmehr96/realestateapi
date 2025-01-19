@@ -83,9 +83,10 @@ namespace Ijora.Storage.Entity
 
         public static void OnModelConfig(EntityTypeBuilder<ComplexEntity> config)
         {
-            config.HasIndex(r => new { r.Id, r.Address, r.CreatedAt });
             config.ToTable("Complexes", IjoraServiceContext.SCHEMA)
                 .HasKey(a => a.Id);
+
+            config.HasIndex(r => new { r.Id, r.Address, r.CreatedAt });
         }
     }
 }

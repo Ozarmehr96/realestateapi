@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ijora.Data", "Ijora.Data\Ij
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ijora.Storage", "Ijora.Storage\Ijora.Storage.csproj", "{654C4EC9-CB78-4E5D-A730-035D13287225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ijora.Domain", "Ijora.Domain\Ijora.Domain.csproj", "{F53C5A41-895F-42CF-910C-73BAB29E93F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ijora.Domain", "Ijora.Domain\Ijora.Domain.csproj", "{F53C5A41-895F-42CF-910C-73BAB29E93F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23D19457-D380-4410-838A-5EBD03841338}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

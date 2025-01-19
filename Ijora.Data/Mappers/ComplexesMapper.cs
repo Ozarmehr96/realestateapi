@@ -7,23 +7,43 @@ namespace Ijora.Data.Mappers
 {
     public static class ComplexesMapper
     {
-        public static ComplexModel ToDomainModel(this ComplexEntity e)
+        public static ComplexEntity ToDatabaseEntity(this ComplexModel complex)
+        {
+            return new ComplexEntity()
+            {
+                Id = complex.Id,
+                Name = complex.Name,
+                Address = complex.Address,
+                BuildYear = complex.BuildYear,
+                CompletionYear = complex.CompletionYear,
+                CreatedAt = complex.CreatedAt,
+                Description = complex.Description,
+                Developer = complex.Developer,
+                UpdatedAt = complex.UpdatedAt,
+                ImageUrls = String.Join(",", complex.ImageUrls),
+                IsCompleted = complex.IsCompleted,
+                PublisherUserId = complex.PublisherUserId,
+                ConstructionStatus = complex.ConstructionStatus.ToString(),
+            };
+        }
+
+        public static ComplexModel ToDomainModel(this ComplexEntity complex)
         {
             return new ComplexModel()
             {
-                Id = e.Id,
-                Name = e.Name,
-                Address = e.Address,
-                BuildYear = e.BuildYear,
-                CompletionYear = e.CompletionYear,
-                CreatedAt = e.CreatedAt,
-                Description = e.Description,
-                Developer = e.Developer,
-                UpdatedAt = e.UpdatedAt,
-                ImageUrls = e.ImageUrls.Split(",").ToList(),
-                IsCompleted = e.IsCompleted,
-                PublisherUserId = e.PublisherUserId,
-                ConstructionStatus = (ConstructionStatus)EnumExtensions.ConvertToEnum<ConstructionStatus>(e.ConstructionStatus),
+                Id = complex.Id,
+                Name = complex.Name,
+                Address = complex.Address,
+                BuildYear = complex.BuildYear,
+                CompletionYear = complex.CompletionYear,
+                CreatedAt = complex.CreatedAt,
+                Description = complex.Description,
+                Developer = complex.Developer,
+                UpdatedAt = complex.UpdatedAt,
+                ImageUrls = complex.ImageUrls.Split(",").ToList(),
+                IsCompleted = complex.IsCompleted,
+                PublisherUserId = complex.PublisherUserId,
+                ConstructionStatus = (ConstructionStatus)EnumExtensions.ConvertToEnum<ConstructionStatus>(complex.ConstructionStatus),
             };
         }
     }
