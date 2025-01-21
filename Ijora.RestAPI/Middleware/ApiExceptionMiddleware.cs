@@ -1,7 +1,6 @@
 ﻿using Ijora.RestAPI.Api.V1.Models;
 using Newtonsoft.Json;
 using System.Text;
-//using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Ijora.RestAPI.Middleware
 {
@@ -32,38 +31,48 @@ namespace Ijora.RestAPI.Middleware
                 catch (NotImplementedException ex) when (_env.IsDevelopment())
                 {
                     context.Response.StatusCode = StatusCodes.Status501NotImplemented;
-                    SetResponseErrorBody(context, $"Not implemented: {ex.Message}");
+                    await SetResponseErrorBody(context, $"Not implemented: {ex.Message}");
                 }
                 // Catching use-case exceptions
                 catch (Domain.Infrastructure.DomainBaseException ex)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    SetResponseErrorBody(context, $"Unhandled use-case exception: {ex.Message}");
+                    await SetResponseErrorBody(context, $"Unhandled use-case exception: {ex.Message}");
                 }
                 // Catching cadas exceptions
                 catch (System.Data.SqlClient.SqlException ex)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    SetResponseErrorBody(context, $"Database-Error: {ex.Message}");
+                   await SetResponseErrorBody(context, $"Database-Error: {ex.Message}");
                 }
                 // Catching unhandled critical errors
                 catch (Exception ex)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                     _logger.LogCritical(ex.ToString());
-                    SetResponseErrorBody(context, $"Critical-Error: {ex.Message}");
+                    await SetResponseErrorBody(context, $"Critical-Error: {ex.Message}");
                 }
             }
         }
 
-        private void SetResponseErrorBody(HttpContext context, string error)
+        private async Task SetResponseErrorBody(HttpContext context, string error)
         {
             _logger.LogError(error);
             string jsonErrorResponse = JsonConvert.SerializeObject(new ErrorResponseModel(error));
-            using (StreamWriter writer = new StreamWriter(context.Response.Body, Encoding.UTF8))
+
+            try
             {
-                writer.Write(jsonErrorResponse);
-                writer.Flush();
+                byte[] byteArray = Encoding.UTF8.GetBytes(jsonErrorResponse);
+
+                // Записываем байтовый массив в поток
+                await context.Response.Body.WriteAsync(byteArray, 0, byteArray.Length);
+
+                // Если необходимо, можно вызвать FlushAsync для явной очистки
+                await context.Response.Body.FlushAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error writing response");
             }
         }
     }

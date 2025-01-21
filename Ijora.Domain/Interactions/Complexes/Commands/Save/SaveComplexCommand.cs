@@ -1,7 +1,6 @@
 ﻿using Ijora.Domain.Interactions.Complexes.Enums;
 using Ijora.Domain.Interactions.Complexes.Models;
 using MediatR;
-using System;
 using System.Collections.Generic;
 
 namespace Ijora.Domain.Interactions.Complexes.Commands.Save

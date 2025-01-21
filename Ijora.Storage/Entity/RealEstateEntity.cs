@@ -235,9 +235,10 @@ namespace Ijora.Storage.Entity
 
         public static void OnModelConfig(EntityTypeBuilder<RealEstateEntity> config)
         {
-            config.HasIndex(r => new { r.Id, r.Address });
             config.ToTable("RealEstates", IjoraServiceContext.SCHEMA)
                 .HasKey(a => a.Id);
+
+            config.HasIndex(r => new { r.Id, r.Address });
         }
     }
 
