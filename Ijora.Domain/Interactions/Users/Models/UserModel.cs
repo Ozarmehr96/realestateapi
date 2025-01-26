@@ -31,5 +31,10 @@ namespace Ijora.Domain.Interactions.Users.Models
         /// Дата первой регистрации.
         /// </summary>
         public DateTime RegistrationDateTime { get; set; }
+
+        /// <summary>
+        /// Дата последней авторизации.
+        /// </summary>
+        public DateTime LastAuthDate { get; set; }
     }
 }

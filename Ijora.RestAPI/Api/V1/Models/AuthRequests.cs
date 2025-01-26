@@ -20,6 +20,13 @@ namespace Ijora.RestAPI.Api.V1.Models
     }
 
     [JsonObject]
+    public class RefreshTokenRequest
+    {
+        [JsonProperty(PropertyName = "refresh_token", Required = Required.Always)]
+        public string RefreshToken { get; set; }
+    }
+
+    [JsonObject]
     public class AuthResponse
     {
         /// <summary>

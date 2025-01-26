@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Ijora.RestAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class DBInit : Migration
+    public partial class DataBaseInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,15 +20,16 @@ namespace Ijora.RestAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: true),
                     Phone = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     RetryCount = table.Column<short>(type: "smallint", nullable: false),
-                    AccessToken = table.Column<string>(type: "varchar(255)", nullable: false),
-                    RefreshToken = table.Column<string>(type: "longtext", nullable: false),
-                    AccessTokenExpieredAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    RefreshTokenExpieredAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    OTP = table.Column<string>(type: "longtext", nullable: false),
-                    OTPExpieredAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    AccessToken = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true),
+                    RefreshToken = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true),
+                    AccessTokenExpieredAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    RefreshTokenExpieredAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    OTP = table.Column<string>(type: "longtext", nullable: true),
+                    OTPExpieredAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    UserJson = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,6 +111,25 @@ namespace Ijora.RestAPI.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    UserName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
+                    Role = table.Column<string>(type: "varchar(59)", maxLength: 59, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    RegistrationDateTime = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    LastAuthDate = table.Column<DateTime>(type: "DATETIME", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Auth_AccessToken_Phone_UserId",
                 table: "Auth",
@@ -125,6 +144,11 @@ namespace Ijora.RestAPI.Migrations
                 name: "IX_RealEstates_Id_Address",
                 table: "RealEstates",
                 columns: new[] { "Id", "Address" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UserId",
+                table: "Users",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -138,6 +162,9 @@ namespace Ijora.RestAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "RealEstates");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

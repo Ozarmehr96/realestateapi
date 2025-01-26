@@ -29,5 +29,10 @@ namespace Ijora.Data.Mappers
                 Role = user.Role.ToString()
             };
         }
+
+        public static void ApplyTo(this UserModel user, UserEntity entity)
+        {
+            entity.LastAuthDate = user.LastAuthDate;
+        }
     }
 }

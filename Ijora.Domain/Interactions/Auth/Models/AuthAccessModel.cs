@@ -39,12 +39,12 @@ namespace Ijora.Domain.Interactions.Auth.Models
         public string RefreshToken { get; set; }
 
         /// <summary>
-        /// Токен доступа.
+        /// Срок действия токена обновления.
         /// </summary>
         public DateTime AccessTokenExpieredAt { get; set; }
 
         /// <summary>
-        /// Токен доступа.
+        /// Срок действия токена обновления.
         /// </summary>
         public DateTime RefreshTokenExpieredAt { get; set; }
 

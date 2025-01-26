@@ -1,6 +1,7 @@
 ﻿using Ijora.Domain.Infrastructure;
 using Ijora.Domain.Interactions.Auth.Exceptions;
 using Ijora.Domain.Interactions.Auth.Models;
+using Ijora.Domain.Interactions.Users.Commands.Create;
 using MediatR;
 using System;
 using System.Threading;
@@ -14,29 +15,20 @@ namespace Ijora.Domain.Interactions.Auth.Commands.Verify
     public class VerifyOTPCommandHandler : IRequestHandler<VerifyOTPCommand, AuthAccessModel>
     {
         private readonly IAuthRepository _authRepository;
-        private JwtTokenService _jwtTokenService;
+        private IMediator _mediator;
 
-        public VerifyOTPCommandHandler(IRepositoryProvider provider, JwtTokenService jwtTokenService)
+        public VerifyOTPCommandHandler(IRepositoryProvider provider, IMediator mediator)
         {
             _authRepository = provider.GetRepository<IAuthRepository>();
-            _jwtTokenService = jwtTokenService;
+            _mediator = mediator;
         }
 
         public async Task<AuthAccessModel> Handle(VerifyOTPCommand request, CancellationToken cancellationToken)
         {
             // Существование записи с номером телефона.
-            var auth = await _authRepository.Get(request.Phone, request.OTP);
+            var auth = await _authRepository.Get(request.Phone);
             if (auth is null)
                 throw new Exception("Сначала укажите номер телефона для получения код авторизации");
-            
-            auth.RetryCount += 1;
-
-            // Соответствие кода.
-            if (auth.OTP != request.OTP)
-            {
-                await _authRepository.Save(auth);
-                throw new IncorrectOTPException();
-            }
 
             // Не истёк ли срок действия кода.
             if (DateTime.Now > auth.OTPExpieredAt)
@@ -50,14 +42,23 @@ namespace Ijora.Domain.Interactions.Auth.Commands.Verify
                 throw new TooManyAttemptsOPTException("Истек количество ввода кода. Получите новый код");
             }
 
-            // возвращаем токен
-            auth.AccessToken = _jwtTokenService.GenerateToken(request.Phone);
-            auth.AccessTokenExpieredAt = DateTime.Now.AddMinutes(15);
+            // Соответствие кода.
+            if (auth.OTP != request.OTP)
+            {
+                auth.RetryCount += 1;
+                await _authRepository.Save(auth);
+                throw new IncorrectOTPException("Неправильный код");
+            }
 
-            auth.RefreshToken = _jwtTokenService.GenerateToken(request.Phone);
-            auth.RefreshTokenExpieredAt = DateTime.Now.Date.AddDays(15);
-
+            // инициализация токенов
+            auth.InitTokens(request.Phone);
             auth.OTP = String.Empty;
+
+            // тут же надо хранить пользователя в БД, в список пользователей
+            // нужно проверить, если он в БД. Если есть, то нужно просто присвоить к auth, и вернуть 
+            // если пользователя нет, то добавить в БД, и потом уже вернуть 
+            var user = await _mediator.Send(new CreateUserCommand(null, Users.Models.UserRole.Common, request.Phone));
+            auth.User = user;
             await _authRepository.Save(auth);
 
             return auth;

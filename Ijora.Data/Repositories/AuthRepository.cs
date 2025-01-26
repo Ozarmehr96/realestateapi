@@ -33,6 +33,17 @@ namespace Ijora.Data.Repositories
             return auth?.ToDomainModel();
         }
 
+        public async Task<AuthAccessModel> Get(string phone)
+        {
+            var auth = await _dbContext.Auth.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Phone == phone);
+            if (auth != null)
+            {
+
+            }
+            return auth?.ToDomainModel();
+        }
+
         public async Task<AuthAccessModel> Save(AuthAccessModel authAccessModel)
         {
             var authEntity = await _dbContext.Auth.FirstOrDefaultAsync(a =>
@@ -47,6 +58,22 @@ namespace Ijora.Data.Repositories
 
             await _dbContext.SaveChangesAsync();
             return authAccessModel;
+        }
+
+        public async Task<AuthAccessModel> GetByToken(string token)
+        {
+            var auth = await _dbContext.Auth.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.AccessToken == token);
+
+            return auth?.ToDomainModel();
+        }
+
+        public async Task<AuthAccessModel> GetByRefreshToken(string refreshToken)
+        {
+            var auth = await _dbContext.Auth.AsNoTracking()
+                .FirstOrDefaultAsync(a => a.RefreshToken == refreshToken);
+
+            return auth?.ToDomainModel();
         }
     }
 }

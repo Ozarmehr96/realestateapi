@@ -22,6 +22,28 @@ namespace Ijora.Domain.Interactions.Auth
         Task<AuthAccessModel> Get(string phone, string otp);
 
         /// <summary>
+        /// Получение данных по токену.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        Task<AuthAccessModel> GetByToken(string token);
+
+
+        /// <summary>
+        /// Получение данных по токену обновлния.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        Task<AuthAccessModel> GetByRefreshToken(string token);
+
+        /// <summary>
+        /// Получение по номеру телефона.
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        Task<AuthAccessModel> Get(string phone);
+
+        /// <summary>
         /// Удаление записи.
         /// </summary>
         /// <param name="id"></param>
