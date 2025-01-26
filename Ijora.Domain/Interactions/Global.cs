@@ -8,5 +8,20 @@
         /// Если он не отправит правльный код, то придется заново указать номер телефона.
         /// </summary>
         public static short AuthOTPRetryCount = 3;
+
+        /// <summary>
+        /// Длина одноразового пароля OTP (sms код подтвержения).
+        /// </summary>
+        public static int OTPLength = 4;
+
+        /// <summary>
+        /// Время действия токена доступа в минутах.
+        /// </summary>
+        public static double AccessTokenExpieredAtMinutes = 3;
+
+        /// <summary>
+        /// Время действия токена обновления в днях.
+        /// </summary>
+        public static double RefreshTokenExpieredAtDays = 5;
     }
 }

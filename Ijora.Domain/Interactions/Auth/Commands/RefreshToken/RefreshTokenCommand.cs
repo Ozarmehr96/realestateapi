@@ -1,10 +1,10 @@
 ﻿using Ijora.Domain.Interactions.Auth.Models;
 using MediatR;
 
-namespace Ijora.Domain.Interactions.Auth.Commands.Auth
+namespace Ijora.Domain.Interactions.Auth.Commands.RefreshToken
 {
     /// <summary>
-    /// Авторизация по номеру телефона. Отправляет смс на телефон.
+    /// Команда обновление токена доступа.
     /// 
     /// Сценария работы:
     /// Клиент делает запрос с токеном доступа.
@@ -14,13 +14,13 @@ namespace Ijora.Domain.Interactions.Auth.Commands.Auth
     /// Если токен обновления действителен, сервер возвращает новый токен доступа.
     /// Клиент повторяет первоначальный запрос с новым токеном.
     /// </summary>
-    public class AuthCommand : IRequest<AuthAccessModel>
+    public class RefreshTokenCommand : IRequest<AuthAccessModel>
     {
-        public string Phone { get; set; }
-
-        public AuthCommand(string phone)
+        public RefreshTokenCommand(string refreshToken)
         {
-            Phone = phone;
+            RefreshToken = refreshToken;
         }
+
+        public string RefreshToken { get; set; }
     }
 }

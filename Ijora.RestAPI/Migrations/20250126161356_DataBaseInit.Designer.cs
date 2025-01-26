@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ijora.RestAPI.Migrations
 {
     [DbContext(typeof(IjoraServiceContext))]
-    [Migration("20250120184257_DBInit")]
-    partial class DBInit
+    [Migration("20250126161356_DataBaseInit")]
+    partial class DataBaseInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,18 +29,17 @@ namespace Ijora.RestAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("AccessToken")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<DateTime>("AccessTokenExpieredAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("OTP")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("OTPExpieredAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -48,17 +47,22 @@ namespace Ijora.RestAPI.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<DateTime>("RefreshTokenExpieredAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("DATETIME");
 
                     b.Property<short>("RetryCount")
                         .HasColumnType("smallint");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("UserJson")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
 
                     b.HasKey("Id");
 
@@ -261,6 +265,43 @@ namespace Ijora.RestAPI.Migrations
                     b.HasIndex("Id", "Address");
 
                     b.ToTable("RealEstates", (string)null);
+                });
+
+            modelBuilder.Entity("Ijora.Storage.Entity.UserEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LastAuthDate")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("RegistrationDateTime")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(59)
+                        .HasColumnType("varchar(59)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

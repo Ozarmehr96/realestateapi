@@ -1,5 +1,4 @@
-﻿using Ijora.Domain.Interactions.Users.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Ijora.RestAPI.Api.V1.Models
 {

@@ -28,15 +28,33 @@ namespace Ijora.Domain.Interactions.Auth.Commands.Auth
             var otp = OtpGenerator.GenerateOtp();
             // ToDo- отправка кода по sms
 
+
             // сохраняем одноразовый пароль скрок действия которого 1 минута.
-            var authAccessModel = new AuthAccessModel()
+            var newAuthAccessModel = new AuthAccessModel()
             {
                 Phone = request.Phone,
                 OTP = otp,
-                OTPExpieredAt = DateTime.Now.AddMinutes(1),
+                OTPExpieredAt = DateTime.Now.AddMinutes(3),
             };
 
-            return await _authRepository.Save(authAccessModel);
+            var authAccessModel = await _authRepository.Get(request.Phone);
+            if (authAccessModel != null)
+            {
+                authAccessModel.OTP = newAuthAccessModel.OTP;
+                authAccessModel.OTPExpieredAt = DateTime.Now.AddMinutes(3);
+            }
+            else
+                authAccessModel = newAuthAccessModel;
+
+            authAccessModel.RetryCount = 0; // сбрасываем количество ввода. В будущем еще нужно учесть и ИД устройства с котого происходит авторизация
+            await _authRepository.Save(authAccessModel);
+
+            // в целом тут ничего ввернуть и не нужно, если все ок. Но, для тестирования вернем код который отправили на телефон
+            return new AuthAccessModel()
+            {
+                OTP = authAccessModel.OTP,
+                OTPExpieredAt = authAccessModel.OTPExpieredAt
+            };
         }
     }
 }

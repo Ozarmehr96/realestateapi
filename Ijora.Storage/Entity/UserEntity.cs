@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ijora.Storage.Entity
 {
@@ -9,6 +10,10 @@ namespace Ijora.Storage.Entity
     /// </summary>
     public class UserEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
+
         /// <summary>
         /// ИД пользователя.
         /// </summary>
@@ -18,7 +23,7 @@ namespace Ijora.Storage.Entity
         /// Имя пользователя
         /// </summary>
         [MaxLength(200)]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         /// <summary>
         /// Роль пользователя (обычный или админ)
@@ -37,11 +42,20 @@ namespace Ijora.Storage.Entity
         /// </summary>
         public DateTime RegistrationDateTime { get; set; }
 
+        /// <summary>
+        /// Дата последней авторизации.
+        /// </summary>
+        public DateTime LastAuthDate { get; set; }
+
         public static void OnModelConfig(EntityTypeBuilder<UserEntity> config)
         {
-            config.HasIndex(r => r.UserId);
             config.ToTable("Users", IjoraServiceContext.SCHEMA)
-                .HasKey(a => a.UserId);
+                .HasKey(a => a.Id);
+
+            config.HasIndex(r => r.UserId);
+            config.Property(e => e.RegistrationDateTime).HasColumnType("DATETIME");
+            config.Property(e => e.LastAuthDate).HasColumnType("DATETIME");
+            config.Property(e => e.UserId).HasColumnType("char(36)");
         }
     }
 }

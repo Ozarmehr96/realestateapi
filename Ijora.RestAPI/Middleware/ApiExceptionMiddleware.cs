@@ -43,7 +43,12 @@ namespace Ijora.RestAPI.Middleware
                 catch (System.Data.SqlClient.SqlException ex)
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                   await SetResponseErrorBody(context, $"Database-Error: {ex.Message}");
+                    await SetResponseErrorBody(context, $"Database-Error: {ex.Message}");
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    await SetResponseErrorBody(context, $"Database-Error: {ex.Message} {ex.InnerException}");
                 }
                 // Catching unhandled critical errors
                 catch (Exception ex)

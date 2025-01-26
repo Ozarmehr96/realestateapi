@@ -1,17 +1,20 @@
 using Ijora.Data.Infrastructure;
 using Ijora.Domain.Infrastructure;
-using Ijora.Domain.Interactions.Auth;
 using Ijora.RestAPI.Middleware;
 using Ijora.Storage;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 // Add services to the container.
 
-services.AddControllers();
+services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.Formatting = Formatting.Indented;
+});
 services.AddMediatR(opt => opt.AsSingleton(), typeof(IRepository).Assembly);
 services.AddSingleton<IRepositoryProvider, RepositoryProvider>();
 
@@ -25,7 +28,6 @@ builder.Services.AddDbContext<IjoraServiceContext>(options =>
     });
 });
 services.AddEndpointsApiExplorer();
-services.AddScoped<JwtTokenService>();
 services.AddSwaggerGen(c =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -43,15 +45,15 @@ using (var scope = app.Services.CreateScope())
     // Update-Database
 }
 
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        options.RoutePrefix = "swagger"; // Делает Swagger UI доступным по корню URL
-    });
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    options.RoutePrefix = "swagger"; // Делает Swagger UI доступным по корню URL
+});
+//}
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ApiExceptionMiddleware>();

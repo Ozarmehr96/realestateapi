@@ -18,6 +18,7 @@ namespace Ijora.Storage
             AuthEntity.OnModelConfig(modelBuilder.Entity<AuthEntity>());
             RealEstateEntity.OnModelConfig(modelBuilder.Entity<RealEstateEntity>());
             ComplexEntity.OnModelConfig(modelBuilder.Entity<ComplexEntity>());
+            UserEntity.OnModelConfig(modelBuilder.Entity<UserEntity>());
         }
 
         /// <summary>
@@ -34,5 +35,10 @@ namespace Ijora.Storage
         /// Авторизация.
         /// </summary>
         public DbSet<AuthEntity> Auth { get; set; }
+
+        /// <summary>
+        /// Список пользоватлей.
+        /// </summary>
+        public DbSet<UserEntity> Users { get; set; }
     }
 }
