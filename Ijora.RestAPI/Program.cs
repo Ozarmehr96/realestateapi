@@ -34,6 +34,7 @@ services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+builder.Services.AddSwaggerGenNewtonsoftSupport(); // чтобы swagger наименовал параметры так как указано в JsonPropertyName
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 var app = builder.Build();
