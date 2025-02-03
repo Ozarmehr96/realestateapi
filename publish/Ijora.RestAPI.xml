@@ -1,0 +1,481 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ijora.RestAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Ijora.RestAPI.Api.V1.Controllers.AuthController.Login(Ijora.RestAPI.Api.V1.Models.AuthRequest)">
+            <summary>
+            Авторизация
+            </summary>
+            <param name="authRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ijora.RestAPI.Api.V1.Controllers.AuthController.VerifyOTP(Ijora.RestAPI.Api.V1.Models.VerifyRequest)">
+            <summary>
+            Подтверждение авторизации с помощью одноразового пароля.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ijora.RestAPI.Api.V1.Controllers.AuthController.RefreshToken(Ijora.RestAPI.Api.V1.Models.RefreshTokenRequest)">
+            <summary>
+            Обновление токена доступа.
+            
+            Сценария работы:
+            Клиент делает запрос с токеном доступа.
+            Если токен действителен — сервер обрабатывает запрос.
+            Если токен недействителен (истёк или отозван), сервер возвращает 401 Unauthorized.
+            Клиент, получив 401, отправляет запрос на обновление токена с использованием токена обновления.
+            Если токен обновления действителен, сервер возвращает новый токен доступа.
+            Клиент повторяет первоначальный запрос с новым токеном.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.User">
+            <summary>
+            ИД пользователя, которому принадлежит токен (только после успешной авторизации).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.AccessToken">
+            <summary>
+            Токен доступа.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.RefreshToken">
+            <summary>
+            Токен обновления токена доступа.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.AccessTokenExpieredAt">
+            <summary>
+            Токен доступа.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.RefreshTokenExpieredAt">
+            <summary>
+            Токен доступа.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.OTP">
+            <summary>
+            One Time Password - то же самое что и код
+            Срок действия одноразового пароля.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.AuthResponse.OTPExpieredAt">
+            <summary>
+            Срок действия одноразового пароля.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Id">
+            <summary>
+            Уникальный идентификатор объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Address">
+            <summary>
+            Полный адрес объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.RoomCount">
+            <summary>
+            Количество комнат в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.SquareMeters">
+            <summary>
+            Общая площадь объекта недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.LivingArea">
+            <summary>
+            Жилая площадь объекта недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.KitchenArea">
+            <summary>
+            Площадь кухни в объекте недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Floor">
+            <summary>
+            Этаж, на котором находится объект недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.TotalFloors">
+            <summary>
+            Общее количество этажей в здании.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Description">
+            <summary>
+            Описание объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.HasParking">
+            <summary>
+            Наличие парковочного места.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Price">
+            <summary>
+            Стоимость объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.WindowView">
+            <summary>
+            Вид из окон объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.HasBalcony">
+            <summary>
+            Наличие балкона в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.CeilingHeight">
+            <summary>
+            Высота потолков в объекте недвижимости в метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.BathroomCount">
+            <summary>
+            Количество санузлов в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.HasElevator">
+            <summary>
+            Наличие лифта в подъезде.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.CargoElevatorCount">
+            <summary>
+            Количество грузовых лифтов в подъезде.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.HeatingType">
+            <summary>
+            Тип отопления (например, Центральное, Индивидуальное).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.OwnershipType">
+            <summary>
+            Тип собственности (например, Частная, Государственная).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.PropertyCondition">
+            <summary>
+            Состояние дома (новостройка, вторичка)
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.YearBuilt">
+            <summary>
+            Дата постройки здания.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.IsInGatedCommunity">
+            <summary>
+            Находится ли объект в закрытом жилом комплексе.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.AllowsPets">
+            <summary>
+            Разрешены ли домашние животные.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.AllowsChildren">
+            <summary>
+            Разрешено ли проживание с детьми.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.ImageUrls">
+            <summary>
+            URL-ы изображений объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.IsFurnished">
+            <summary>
+            Наличие мебели в объекте.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.OwnershipYears">
+            <summary>
+            Количество лет в собственности у текущего владельца.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.OwnerCount">
+            <summary>
+            Количество собственников объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.PublisherPhoneNumber">
+            <summary>
+            Номер телефона, с которого была опубликована запись.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.PropertyUsageType">
+            <summary>
+            Тип записи (продажа или аренда).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.PropertyType">
+            <summary>
+            Тип недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.WallMaterial">
+            <summary>
+            Материал стен здания.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.CreateRealEstateRequest.Renovation">
+            <summary>
+            Состояние ремонта объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Id">
+            <summary>
+            Уникальный идентификатор объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Address">
+            <summary>
+            Полный адрес объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.RoomCount">
+            <summary>
+            Количество комнат в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.SquareMeters">
+            <summary>
+            Общая площадь объекта недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.LivingArea">
+            <summary>
+            Жилая площадь объекта недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.KitchenArea">
+            <summary>
+            Площадь кухни в объекте недвижимости в квадратных метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Floor">
+            <summary>
+            Этаж, на котором находится объект недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.TotalFloors">
+            <summary>
+            Общее количество этажей в здании.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Description">
+            <summary>
+            Описание объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.HasParking">
+            <summary>
+            Наличие парковочного места.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Price">
+            <summary>
+            Стоимость объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.WindowView">
+            <summary>
+            Вид из окон объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.HasBalcony">
+            <summary>
+            Наличие балкона в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.CeilingHeight">
+            <summary>
+            Высота потолков в объекте недвижимости в метрах.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.BathroomCount">
+            <summary>
+            Количество санузлов в объекте недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.HasElevator">
+            <summary>
+            Наличие лифта в подъезде.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.CargoElevatorCount">
+            <summary>
+            Количество грузовых лифтов в подъезде.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.HeatingType">
+            <summary>
+            Тип отопления (например, Центральное, Индивидуальное).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.OwnershipType">
+            <summary>
+            Тип собственности (например, Частная, Государственная).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.PropertyCondition">
+            <summary>
+            Состояние дома (новостройка, вторичка)
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.YearBuilt">
+            <summary>
+            Дата постройки здания.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.IsInGatedCommunity">
+            <summary>
+            Находится ли объект в закрытом жилом комплексе.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.AllowsPets">
+            <summary>
+            Разрешены ли домашние животные.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.AllowsChildren">
+            <summary>
+            Разрешено ли проживание с детьми.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.ImageUrls">
+            <summary>
+            URL-ы изображений объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.IsFurnished">
+            <summary>
+            Наличие мебели в объекте.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.OwnershipYears">
+            <summary>
+            Количество лет в собственности у текущего владельца.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.OwnerCount">
+            <summary>
+            Количество собственников объекта недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.UserId">
+            <summary>
+            Идентификатор пользователя, который разместил запись.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.PublicationDate">
+            <summary>
+            Дата публикации записи о недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.PublisherPhoneNumber">
+            <summary>
+            Номер телефона, с которого была опубликована запись.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.PropertyUsageType">
+            <summary>
+            Тип записи (продажа или аренда).
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.PropertyType">
+            <summary>
+            Тип недвижимости.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.WallMaterial">
+            <summary>
+            Материал стен здания.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.RealEstateResponse.Renovation">
+            <summary>
+            Состояние ремонта объекта недвижимости.
+            </summary>
+        </member>
+        <member name="M:Ijora.RestAPI.Api.V1.Models.RealEstateModelExtensions.ToResponse(Ijora.Domain.Interactions.RealEstates.Models.RealEstateModel)">
+            <summary>
+            Преобразует модель недвижимости в ответ, который будет возвращён клиенту.
+            </summary>
+            <param name="realEstate">Объект модели недвижимости.</param>
+            <returns>Ответ для клиента в виде объекта RealEstateResponse.</returns>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.UserModelResponse.UserId">
+            <summary>
+            ИД пользователя.
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.UserModelResponse.UserName">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.UserModelResponse.Role">
+            <summary>
+            Роль пользователя (обычный или админ)
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.UserModelResponse.PhoneNumber">
+            <summary>
+            Номер телефона
+            </summary>
+        </member>
+        <member name="P:Ijora.RestAPI.Api.V1.Models.UserModelResponse.RegistrationDateTime">
+            <summary>
+            Дата первой регистрации.
+            </summary>
+        </member>
+        <member name="T:Ijora.RestAPI.Migrations.DataBaseInit">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.DataBaseInit.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.DataBaseInit.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.DataBaseInit.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Ijora.RestAPI.Migrations.FixUserIdOFUsers">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.FixUserIdOFUsers.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.FixUserIdOFUsers.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.FixUserIdOFUsers.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Ijora.RestAPI.Migrations.NullableUserName">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.NullableUserName.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.NullableUserName.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Ijora.RestAPI.Migrations.NullableUserName.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
