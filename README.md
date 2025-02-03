@@ -82,16 +82,16 @@ dotnet Ijora.RestAPI.dll
 
 ## Создание службы для автозапуска приложения
 
-Для автоматического запуска приложения с использованием `systemd`, создайте службу.
+Для автоматического запуска приложения с использованием `systemd`, нужно службу.
 
 ### 1. Создание файла службы
 
-Создайте новый файл службы:
+Создание нового файла службы:
 ```bash
 sudo nano /etc/systemd/system/Ijora.RestAPI.service
 ```
 
-Добавьте в файл следующий конфиг:
+Добавляем конфиг:
 
 ```ini
 [Unit]
@@ -110,9 +110,9 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
-Замените:
-- `/var/www/fastuser/data/www/manzilRestAPI` на путь к вашему приложению.
-- `your_user` на имя пользователя, под которым будет работать приложение.
+Объянение:
+- `/var/www/fastuser/data/www/manzilRestAPI` путь к приложению.
+- `your_user` имя пользователя, под которым будет работать приложение.
 
 ### 2. Перезагрузка `systemd`
 
