@@ -34,8 +34,8 @@ After=network.target
 WorkingDirectory=/var/www/fastuser/data/www/manzilRestAPI
 ExecStart=/usr/bin/dotnet /var/www/fastuser/data/www/manzilRestAPI/Ijora.RestAPI.dll
 Restart=always
-# Если хотите ограничить максимальное количество открытых файлов для приложения, добавьте:
-# LimitNOFILE=4096
+Если хотите ограничить максимальное количество открытых файлов для приложения, добавьте:
+-#LimitNOFILE=4096
 User=your_user
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
