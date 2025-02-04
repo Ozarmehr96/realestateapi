@@ -200,7 +200,7 @@ sudo nano /etc/nginx/conf.d/Ijora.RestAPI.conf
 ```nginx
 server {
     listen 80;  # Порт, на который будет проксироваться запросы
-    server_name mydomain.com;  # Домен вашего сайта
+    server_name mydomain.com;  # Домен сайта
 
     location / {
         proxy_pass http://localhost:5000;  # Прокси на Kestrel
