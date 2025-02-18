@@ -1,8 +1,7 @@
 ﻿using Ijora.Domain.Infrastructure;
+using Ijora.Domain.Interactions.RealEstates.Exceptions;
 using Ijora.Domain.Interactions.RealEstates.Models;
 using MediatR;
-using System;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,26 +25,6 @@ namespace Ijora.Domain.Interactions.RealEstates.Queries.GetRealEstate
                 throw new RealEstateNotFoundException();
 
             return realEstate;
-        }
-    }
-
-    [Serializable]
-    internal class RealEstateNotFoundException : Exception
-    {
-        public RealEstateNotFoundException()
-        {
-        }
-
-        public RealEstateNotFoundException(string message) : base(message)
-        {
-        }
-
-        public RealEstateNotFoundException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected RealEstateNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
         }
     }
 }
