@@ -11,7 +11,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// Уникальный идентификатор объекта недвижимости.
         /// </summary>
         [JsonProperty(PropertyName = "id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         /// <summary>
         /// Полный адрес объекта недвижимости.
@@ -48,6 +48,11 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// </summary>
         [JsonProperty(PropertyName = "floor")]
         public int? Floor { get; set; }
+
+        /// <summary>
+        /// ИД жилого комплекса (ЖК), к которому относится дом
+        /// </summary>
+        public long? ComplexId { get; set; }
 
         /// <summary>
         /// Общее количество этажей в здании.
@@ -125,7 +130,7 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// Тип отопления (например, Центральное, Индивидуальное).
         /// </summary>
         [JsonProperty(PropertyName = "heating_type")]
-        public string HeatingType { get; set; }
+        public string? HeatingType { get; set; }
 
         /// <summary>
         /// Тип собственности (например, Частная, Государственная).
