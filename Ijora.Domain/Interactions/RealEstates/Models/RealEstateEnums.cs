@@ -24,7 +24,7 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
     }
 
     /// <summary>
-    /// Тип недвижимости/постройки
+    /// Тип недвижимости/постройки (Квартира/Дом/Таунхаус)
     /// </summary>
     public enum PropertyType
     {

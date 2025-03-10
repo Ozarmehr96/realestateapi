@@ -17,6 +17,11 @@ namespace Ijora.Storage.Entity
         public long Id { get; set; }
 
         /// <summary>
+        /// Это VIP объявление.
+        /// </summary>
+        public bool IsVip { get; set; }
+
+        /// <summary>
         /// Доступность для продажи или аренды.
         /// </summary>
         public bool IsAvaliable { get; set; }

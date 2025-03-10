@@ -3,6 +3,78 @@ using Newtonsoft.Json;
 
 namespace Ijora.RestAPI.Api.V1.Models
 {
+    [JsonObject]
+    public class RealEstateShortResponse
+    {
+        #region Основные характеристики
+
+        /// <summary>
+        /// Уникальный идентификатор объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "id", NullValueHandling = NullValueHandling.Include)]
+        public long Id { get; set; }
+
+        [JsonProperty(PropertyName = "is_vip", NullValueHandling = NullValueHandling.Include)]
+        public bool IsVip { get; set; }
+
+        /// <summary>
+        /// Полный адрес объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "address", NullValueHandling = NullValueHandling.Include)]
+        public string Address { get; set; }
+
+        /// <summary>
+        /// ИД города.
+        /// </summary>
+        [JsonProperty(PropertyName = "city_id", NullValueHandling = NullValueHandling.Include)]
+        public long CityId { get; set; }
+
+        /// <summary>
+        /// ИД города.
+        /// </summary>
+        [JsonProperty(PropertyName = "city_name", NullValueHandling = NullValueHandling.Include)]
+        public string CityName { get; set; }
+
+        /// <summary>
+        /// Количество комнат в объекте недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "room_count", NullValueHandling = NullValueHandling.Include)]
+        public int? RoomCount { get; set; }
+
+        /// <summary>
+        /// Общая площадь объекта недвижимости в квадратных метрах.
+        /// </summary>
+        [JsonProperty(PropertyName = "square_meters", NullValueHandling = NullValueHandling.Include)]
+        public double? SquareMeters { get; set; }
+
+        /// <summary>
+        /// Этаж, на котором находится объект недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "floor", NullValueHandling = NullValueHandling.Include)]
+        public int? Floor { get; set; }
+
+        /// <summary>
+        /// Общее количество этажей в здании.
+        /// </summary>
+        [JsonProperty(PropertyName = "total_floors", NullValueHandling = NullValueHandling.Include)]
+        public int? TotalFloors { get; set; }
+
+        /// <summary>
+        /// Стоимость объекта недвижимости.
+        /// </summary>
+        [JsonProperty(PropertyName = "price", NullValueHandling = NullValueHandling.Include)]
+        public double? Price { get; set; }
+
+        /// <summary>
+        /// Картинка
+        /// </summary>
+
+        [JsonProperty(PropertyName = "image", NullValueHandling = NullValueHandling.Include)]
+        public string Image { get; set; }
+        #endregion
+    }
+
+    [JsonObject]
     public class RealEstateResponse
     {
         #region Основные характеристики
@@ -255,6 +327,21 @@ namespace Ijora.RestAPI.Api.V1.Models
         /// </summary>
         /// <param name="realEstate">Объект модели недвижимости.</param>
         /// <returns>Ответ для клиента в виде объекта RealEstateResponse.</returns>
+        public static RealEstateShortResponse ToResponseShort(this RealEstateShortModel realEstate)
+        {
+            return new RealEstateShortResponse()
+            {
+                Id = realEstate.Id,
+                Address = realEstate.Address,
+                RoomCount = realEstate.RoomCount,
+                SquareMeters = realEstate.SquareMeters,
+                Floor = realEstate.Floor,
+                TotalFloors = realEstate.TotalFloors,
+                Price = realEstate.Price,
+                Image = realEstate.Image
+            };
+        }
+
         public static RealEstateResponse ToResponse(this RealEstateModel realEstate)
         {
             return new RealEstateResponse

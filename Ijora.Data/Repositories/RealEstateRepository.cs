@@ -21,6 +21,12 @@ namespace Ijora.Data.Repositories
             return realEstate?.ToDomainModel();
         }
 
+        public async Task<List<RealEstateShortModel>> GetAll()
+        {
+            var realEstate = await _dbContext.RealEstates.AsNoTracking().ToListAsync();
+            return realEstate?.Select(t => t.ToDomainShortModel()).ToList();
+        }
+
         public async Task<RealEstateModel> Save(RealEstateModel realEstate)
         {
             await _dbContext.RealEstates.AddAsync(realEstate.ToDatabaseEntity());
