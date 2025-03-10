@@ -2,6 +2,11 @@
 {
     public static class Global
     {
+        // <summary>
+        /// Название политики для CORS.
+        /// </summary>
+        public const string HttpCorsPolicyName = "AllowSpecificOrigin";
+
         /// <summary>
         /// Максимальное количество попыток ввода одноразового пароля.
         /// Когда отправляется смс клиенту, то он может до указанного числа попытатся отправить полученный код.

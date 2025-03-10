@@ -6,6 +6,25 @@ namespace Ijora.Data.Mappers
 {
     public static class RealEstateMapper
     {
+        public static RealEstateShortModel ToDomainShortModel(this RealEstateEntity e)
+        {
+            return new RealEstateShortModel()
+            {
+                Id = e.Id,
+                IsAvaliable = e.IsAvaliable,
+                PublicationDate = e.PublicationDate,
+                PropertyUsageType = (PropertyUsageType)EnumExtensions.ConvertToEnum<PropertyUsageType>(e.PropertyUsageType),
+                SquareMeters = e.SquareMeters,
+                Price = e.Price,
+                PropertyType = (PropertyType)EnumExtensions.ConvertToEnum<PropertyType>(e.PropertyType),
+                Address = e.Address,
+                RoomCount = e.RoomCount,
+                Floor = e.RoomCount,
+                TotalFloors = e.TotalFloors,
+                Image = e.ImageUrls.Split(",").ToList().FirstOrDefault()
+            };
+        }
+
         public static RealEstateModel ToDomainModel(this RealEstateEntity e)
         {
             return new RealEstateModel()

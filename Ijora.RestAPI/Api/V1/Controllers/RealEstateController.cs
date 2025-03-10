@@ -1,7 +1,9 @@
-﻿using Ijora.Domain.Interactions.Auth.Exceptions;
+﻿using Ijora.Domain.Interactions;
+using Ijora.Domain.Interactions.Auth.Exceptions;
 using Ijora.Domain.Interactions.Auth.Models;
 using Ijora.Domain.Interactions.RealEstates.Commands.Create;
 using Ijora.Domain.Interactions.RealEstates.Models;
+using Ijora.Domain.Interactions.RealEstates.Queries.GetAll;
 using Ijora.RestAPI.Api.V1.Models;
 using Ijora.RestAPI.Api.V1.Shared;
 using MediatR;
@@ -21,21 +23,21 @@ namespace Ijora.RestAPI.Api.V1.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(5);
+            var items = await Mediator.Send(new GetAllRealEstatesQuery());
+            return Ok(items.Select(r => r.ToResponseShort()));
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRealEstateRequest command, CancellationToken cancellationToken)
         {
-
             AuthAccessModel auth;
             try
             {
-                auth = await GetAuthorizedAccess(authorizaionHeader, cancellationToken);
+                auth = await Autorize(cancellationToken);
             }
             catch (AccessModelNotFoundException)
             {
-                return Unauthorized(ErrorText.UNAUTHORIZED.AsResponseModel());
+                // return Unauthorized(ErrorText.UNAUTHORIZED.AsResponseModel());
             }
 
             var realEstate = await Mediator.Send(new CreateRealEstateCommand(new RealEstateModel()
@@ -51,37 +53,32 @@ namespace Ijora.RestAPI.Api.V1.Controllers
                 Floor = command.Floor,
                 HasBalcony = command.HasBalcony,
                 HasElevator = command.HasElevator,
-                HeatingType = command.HeatingType,
+                HeatingType = EnumExtensions.ConvertToEnum<HeatingType>(command.HeatingType),
                 HasParking = command.HasParking,
-                Id = command.Id,
-               //ImageUrls = command.ImageUrls,
-               IsAvaliable = command.IsAvaliable,
-               ImageUrls = command.ImageUrls,
-               IsFurnished = command.IsFurnished,
-               IsInGatedCommunity = command.IsInGatedCommunity,
-               KitchenArea = command.KitchenArea,
-               LivingArea = command.LivingArea,
-               OwnerCount = command.OwnerCount,
-               OwnershipType = command.OwnershipType,
-               OwnershipYears = command.OwnershipYears,
-               Price = command.Price,
-               PropertyCondition = command.PropertyCondition,
-               PropertyType = command.PropertyType,
-               PropertyUsageType = command.PropertyUsageType,
-               PublicationDate = command.PublicationDate,
-               PublisherPhoneNumber = command.PublisherPhoneNumber,
-               Renovation = command.Renovation,
-               RoomCount = command.RoomCount,
-               SquareMeters = command.SquareMeters, 
-               TotalFloors = command.TotalFloors,
-               UserId = command.UserId,
-               WallMaterial = command.WallMaterial,
-               WindowView  = command.WindowView,
-               YearBuilt = command.YearBuilt
+                //ImageUrls = command.ImageUrls,
+                ImageUrls = command.ImageUrls,
+                IsFurnished = command.IsFurnished,
+                IsInGatedCommunity = command.IsInGatedCommunity,
+                KitchenArea = command.KitchenArea,
+                LivingArea = command.LivingArea,
+                OwnerCount = command.OwnerCount,
+                OwnershipType = EnumExtensions.ConvertToEnum<OwnershipType>(command.OwnershipType),
+                OwnershipYears = command.OwnershipYears,
+                Price = command.Price,
+                PropertyCondition = EnumExtensions.ConvertToEnum<PropertyCondition>(command.PropertyCondition),
+                PropertyType = EnumExtensions.ConvertToEnum<PropertyType>(command.PropertyType),
+                PropertyUsageType = (PropertyUsageType)EnumExtensions.ConvertToEnum<PropertyUsageType>(command.PropertyUsageType),
+                PublisherPhoneNumber = command.PublisherPhoneNumber,
+                Renovation = EnumExtensions.ConvertToEnum<Renovation>(command.Renovation),
+                RoomCount = command.RoomCount,
+                SquareMeters = command.SquareMeters,
+                TotalFloors = command.TotalFloors,
+                WallMaterial = EnumExtensions.ConvertToEnum<WallMaterial>(command.WallMaterial),
+                WindowView = EnumExtensions.ConvertToEnum<WindowViewType>(command.WindowView),
+                YearBuilt = command.YearBuilt
             }), cancellationToken);
-            return Ok(5);
-            ///var realEstateId = await _mediator.Send(command);
-            //return CreatedAtAction(nameof(GetById), new { id = realEstateId }, null);
+
+            return Ok(realEstate.ToResponse());
         }
     }
 }

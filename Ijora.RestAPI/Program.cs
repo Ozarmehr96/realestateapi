@@ -11,6 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 // Add services to the container.
 Console.WriteLine("ffffffffff");
+services.AddCors(options => options.AddPolicy(Ijora.Domain.Interactions.Global.HttpCorsPolicyName, cors =>
+{
+    cors.AllowAnyHeader();
+    cors.AllowAnyMethod();
+    cors.AllowAnyOrigin();
+    cors.AllowCredentials();
+
+    // список заголовок ответов к которым есть доступ при после выполнения запроса на клиенте
+    cors.WithExposedHeaders("Access-Token", "WebSocket-Token", "Refresh-Token");
+}));
+
 services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.Formatting = Formatting.Indented;

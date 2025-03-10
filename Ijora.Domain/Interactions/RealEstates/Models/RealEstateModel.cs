@@ -25,6 +25,8 @@ namespace Ijora.Domain.Interactions.RealEstates.Models
         /// </summary>
         public string Address { get; set; }
 
+        public CityModel City { get; set; }
+
         /// <summary>
         /// Количество комнат в объекте недвижимости.
         /// </summary>

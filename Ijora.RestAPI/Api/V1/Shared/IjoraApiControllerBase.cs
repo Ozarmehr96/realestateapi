@@ -32,7 +32,7 @@ namespace Ijora.RestAPI.Api.V1.Shared
 
         protected string GetLoggerCategory(int version, string route) => $"Alrosa.RestApi.V{version}.{route}";
 
-        protected async Task<AuthAccessModel> Autorize()
+        protected async Task<AuthAccessModel> Autorize(CancellationToken cancellationToken = default)
         {
             if (!Request.Headers.TryGetValue(_authorization, out var authToken))
             {

@@ -20,8 +20,10 @@ namespace Ijora.Domain.Interactions.RealEstates.Commands.Create
 
             var realEstate = new RealEstateModel()
             {
-                Address = request.
+               // Address = request.
             };
+
+            return realEstate;
         }
     }
 }
